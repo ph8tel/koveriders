@@ -620,10 +620,15 @@ defmodule KoveRidersWeb.GarageLive do
                   class="border-2 border-dashed border-base-300 rounded-lg p-6 text-center cursor-pointer hover:border-primary/50"
                   phx-drop-target={@uploads.photo.ref}
                 >
-                  <.live_file_input upload={@uploads.photo} class="hidden" />
-                  <.icon name="hero-arrow-up-tray" class="size-8 mx-auto mb-2 opacity-40" />
-                  <p class="text-sm text-base-content/50">Drag photos here or click to browse</p>
-                  <p class="text-xs text-base-content/30 mt-1">JPG, PNG, WebP · max 10 MB each</p>
+                  <label for={@uploads.photo.ref} class="text-primary cursor-pointer hover:underline">
+                    <.live_file_input upload={@uploads.photo} class="hidden" />
+                    <.icon name="hero-arrow-up-tray" class="size-8 mx-auto mb-2 opacity-40" />
+                    <p class="text-sm text-base-content/50">
+                      Drag photos here or
+                      browse
+                    </p>
+                    <p class="text-xs text-base-content/30 mt-1">JPG, PNG, WebP · max 10 MB each</p>
+                  </label>
                 </div>
 
                 <%= for entry <- @uploads.photo.entries do %>
