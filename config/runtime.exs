@@ -39,7 +39,8 @@ if config_env() == :prod do
   config :kove_riders, KoveRidersWeb.Endpoint,
     url: [host: host, port: 443, scheme: "https"],
     http: [ip: {0, 0, 0, 0, 0, 0, 0, 0}, port: port],
-    secret_key_base: secret_key_base
+    secret_key_base: secret_key_base,
+    server: true
 end
 
 # Cloudflare R2 storage

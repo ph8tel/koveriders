@@ -50,6 +50,9 @@ defmodule KoveRidersWeb.Layouts do
           <.link navigate={~p"/@#{@current_scope.user.handle}"} class="btn btn-ghost btn-sm">
             <.icon name="hero-user" class="size-4" /> {@current_scope.user.handle}
           </.link>
+          <.link navigate={~p"/users/settings"} class="btn btn-ghost btn-sm" title="Settings">
+            <.icon name="hero-cog-6-tooth" class="size-4" />
+          </.link>
           <.link href={~p"/users/log-out"} method="delete" class="btn btn-ghost btn-sm">
             Log out
           </.link>
