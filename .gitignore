@@ -54,3 +54,7 @@ npm-debug.log
 # Environment variables
 .env
 
+skills-lock.json
+.agents/skills/neon-postgres/SKILL.md
+.claude/skills/neon-postgres/SKILL.md
+.vscode/.phoenix-pulse-cache.json

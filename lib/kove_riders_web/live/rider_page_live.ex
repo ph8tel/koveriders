@@ -25,8 +25,19 @@ defmodule KoveRidersWeb.RiderPageLive do
 
         bike_names =
           bikes
-          |> Enum.map(fn ub -> "#{ub.year} #{UserBike.model_label(ub.model)}" end)
-          |> Enum.join(", ")
+          |> Enum.map(fn ub ->
+            base = "#{ub.year} #{UserBike.model_label(ub.model)}"
+
+            details =
+              [
+                if(ub.mileage && ub.mileage > 0, do: "#{ub.mileage} miles", else: nil),
+                if(ub.mods && ub.mods != [], do: "#{length(ub.mods)} mod#{if length(ub.mods) == 1, do: "", else: "s"}", else: nil)
+              ]
+              |> Enum.reject(&is_nil/1)
+
+            if details == [], do: base, else: "#{base} (#{Enum.join(details, ", ")})"
+          end)
+          |> Enum.join("; ")
 
         og_description =
           cond do
