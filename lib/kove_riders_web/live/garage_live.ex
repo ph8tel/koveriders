@@ -213,30 +213,36 @@ defmodule KoveRidersWeb.GarageLive do
         case KoveRiders.Storage.upload_file(tmp_path, key, entry.client_type) do
           {:ok, _} ->
             url = KoveRiders.Storage.public_url(key)
-            {:ok, %{r2_key: key, url: url}}
+            {:ok, {:ok, %{r2_key: key, url: url}}}
 
           {:error, reason} ->
-            {:postpone, reason}
+            {:ok, {:error, reason}}
         end
       end)
 
-    Enum.each(uploaded_images, fn img ->
-      UserBikes.add_image(scope, bike.id, Map.put(img, :caption, caption))
-    end)
+    errors = for {:error, reason} <- uploaded_images, do: reason
 
-    updated_bike = UserBikes.get_user_bike!(scope, bike.id)
-
-    user_bikes =
-      Enum.map(socket.assigns.user_bikes, fn b ->
-        if b.id == updated_bike.id, do: updated_bike, else: b
+    if errors != [] do
+      {:noreply, put_flash(socket, :error, "Upload failed: #{Enum.join(errors, ", ")}")}
+    else
+      Enum.each(uploaded_images, fn {:ok, img} ->
+        UserBikes.add_image(scope, bike.id, Map.put(img, :caption, caption))
       end)
 
-    {:noreply,
-     socket
-     |> assign(:selected_bike, updated_bike)
-     |> assign(:user_bikes, user_bikes)
-     |> assign(:show_upload_modal, false)
-     |> put_flash(:info, "Photo(s) uploaded!")}
+      updated_bike = UserBikes.get_user_bike!(scope, bike.id)
+
+      user_bikes =
+        Enum.map(socket.assigns.user_bikes, fn b ->
+          if b.id == updated_bike.id, do: updated_bike, else: b
+        end)
+
+      {:noreply,
+       socket
+       |> assign(:selected_bike, updated_bike)
+       |> assign(:user_bikes, user_bikes)
+       |> assign(:show_upload_modal, false)
+       |> put_flash(:info, "Photo(s) uploaded!")}
+    end
   end
 
   def handle_event("delete_photo", %{"id" => id}, socket) do
