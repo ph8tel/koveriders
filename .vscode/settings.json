@@ -1,0 +1,12 @@
+{
+  // Tell VS Code's Playwright extension where the config lives so "Run Test"
+  // buttons in the editor use the project root as the working directory.
+  "playwright.reuseBrowser": false,
+  "playwright.env": {
+    "GOOGLE_OAUTH_BASE_URL": "http://localhost:4444/google",
+    "GOOGLE_OAUTH_CLIENT_ID": "mock-client-id-for-e2e-tests",
+    "GOOGLE_OAUTH_CLIENT_SECRET": "mock-client-secret-for-e2e-tests",
+    "GOOGLE_OAUTH_REDIRECT_URI": "http://localhost:4001/auth/google/callback",
+    "PORT": "4001"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "koveriders",
+  "version": "1.0.0",
+  "description": "This application allows riders to generate links that utilize Object Graph notation for creating image previews in social media posts. Users can upload images and relevant details, which can then be shared via a link at the end of their posts. This link generates a preview displaying the images and bike specifications.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test:e2e": "npx playwright test --config playwright.config.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ph8tel/koveriders.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ph8tel/koveriders/issues"
+  },
+  "homepage": "https://github.com/ph8tel/koveriders#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.5.0"
+  }
+}
