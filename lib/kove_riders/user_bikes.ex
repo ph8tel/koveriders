@@ -79,7 +79,7 @@ defmodule KoveRiders.UserBikes do
           where: i.id == ^image_id
       )
 
-    with {:ok, _} <- Storage.delete(img.r2_key) do
+    with :ok <- Storage.delete(img.r2_key) do
       Repo.delete(img)
     end
   end

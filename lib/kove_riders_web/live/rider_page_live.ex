@@ -31,7 +31,10 @@ defmodule KoveRidersWeb.RiderPageLive do
             details =
               [
                 if(ub.mileage && ub.mileage > 0, do: "#{ub.mileage} miles", else: nil),
-                if(ub.mods && ub.mods != [], do: "#{length(ub.mods)} mod#{if length(ub.mods) == 1, do: "", else: "s"}", else: nil)
+                if(ub.mods && ub.mods != [],
+                  do: "#{length(ub.mods)} mod#{if length(ub.mods) == 1, do: "", else: "s"}",
+                  else: nil
+                )
               ]
               |> Enum.reject(&is_nil/1)
 

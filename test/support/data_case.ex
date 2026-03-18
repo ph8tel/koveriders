@@ -24,6 +24,7 @@ defmodule KoveRiders.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import KoveRiders.DataCase
+      import KoveRiders.Factory
     end
   end
 

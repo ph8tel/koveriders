@@ -28,11 +28,27 @@ defmodule KoveRidersWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import KoveRidersWeb.ConnCase
+      import KoveRiders.Factory
     end
   end
 
   setup tags do
     KoveRiders.DataCase.setup_sandbox(tags)
     {:ok, conn: Phoenix.ConnTest.build_conn()}
+  end
+
+  @doc """
+  Sets up the connection for an authenticated user.
+
+  Injects the user's session token so that LiveViews and plugs
+  that call `UserAuth.mount_current_scope` or `UserAuth.fetch_current_scope_for_user`
+  will see a logged-in user.
+  """
+  def log_in_user(conn, user) do
+    token = KoveRiders.Accounts.generate_user_session_token(user)
+
+    conn
+    |> Phoenix.ConnTest.init_test_session(%{})
+    |> Plug.Conn.put_session(:user_token, token)
   end
 end
