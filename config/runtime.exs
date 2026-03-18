@@ -10,8 +10,15 @@ if File.exists?(env_file) do
   |> Enum.reject(&String.starts_with?(&1, "#"))
   |> Enum.each(fn line ->
     case String.split(line, "=", parts: 2) do
-      [key, val] -> System.put_env(String.trim(key), String.trim(val))
-      _ -> :ok
+      [key, val] ->
+        key = String.trim(key)
+        # Only set if not already present — lets CI/Playwright env vars take precedence
+        if System.get_env(key) == nil do
+          System.put_env(key, String.trim(val))
+        end
+
+      _ ->
+        :ok
     end
   end)
 end
